@@ -311,9 +311,10 @@ function App() {
       <div className="atm-frame">
         {/* Header: OCBC logo + language + dark toggle */}
         <header className="atm-header atm-screen-contents">
-          <div className="atm-logo-circle">
-            <span className="atm-logo-mark" />
-          </div>
+        <div >
+             <img src="/images/OCBC.png"  alt="ATM Logo"width="100" />
+        </div>
+
 
           <div className="atm-header-right">
             <button
