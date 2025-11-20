@@ -246,7 +246,6 @@ function App() {
   const [language, setLanguage] = useState("EN");
   const [languageLocked, setLanguageLocked] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
 
   const { features, loading: featuresLoading } = useAtmFeatures();
@@ -264,11 +263,17 @@ function App() {
   };
 
   /* apply default language from prefs once (unless user changed) */
-  useEffect(() => {
-    if (!languageLocked && prefs.defaultLanguage) {
+useEffect(() => {
+  // If user has not changed language manually
+  if (!languageLocked) {
+    if (prefs.defaultLanguage) {
       setLanguage(prefs.defaultLanguage);
+    } else {
+      setLanguage("EN"); // fallback default
     }
-  }, [prefs.defaultLanguage, languageLocked]);
+  }
+}, [prefs.defaultLanguage, languageLocked]);
+
 
   const handleLanguageSelect = (code) => {
     setLanguage(code);
@@ -279,7 +284,7 @@ function App() {
 
   const rootClasses = [
     "atm-root",
-    isDark ? "atm-root--dark" : "atm-root--light",
+    "atm-root--light",
     prefs.fontSize === "large"
       ? "atm-root--font-lg"
       : prefs.fontSize === "xlarge"
@@ -306,45 +311,33 @@ function App() {
   return (
     <div className={rootClasses}>
       <div className="atm-frame">
-        <header className="atm-header atm-screen-contents">
-          <button
-            type="button"
-            className="atm-logo-circle"
-          onClick={() => goTo("insertCard")}
-            aria-label="Restart session"
-          >
-            <span className="atm-logo-mark" />
-          </button>
+      <header className="atm-header atm-screen-contents">
+  <div>
+    <img src="/images/OCBC.png" alt="ATM Logo" width="100" />
+  </div>
 
-          <div className="atm-header-right">
+  <div className="atm-header-right">
+    <div className="atm-language-wrapper">
+      <button
+        className="atm-language-pill"
+        type="button"
+        onClick={() => setShowLangMenu((s) => !s)}
+      >
+        {LANGUAGE_PILL_LABEL[language]}
+      </button>
 
-            <div className="atm-language-wrapper">
-              <button
-                className="atm-language-pill"
-                type="button"
-                onClick={() => setShowLangMenu((s) => !s)}
-              >
-                {LANGUAGE_PILL_LABEL[language]}
-              </button>
-              {showLangMenu && (
-                <div className="atm-language-menu">
-                  <button onClick={() => handleLanguageSelect("EN")}>
-                    English
-                  </button>
-                  <button onClick={() => handleLanguageSelect("ZH")}>
-                    中文
-                  </button>
-                  <button onClick={() => handleLanguageSelect("MS")}>
-                    Melayu
-                  </button>
-                  <button onClick={() => handleLanguageSelect("TA")}>
-                    தமிழ்
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </header>
+      {showLangMenu && (
+        <div className="atm-language-menu">
+          <button onClick={() => handleLanguageSelect("EN")}>English</button>
+          <button onClick={() => handleLanguageSelect("ZH")}>中文</button>
+          <button onClick={() => handleLanguageSelect("MS")}>Melayu</button>
+          <button onClick={() => handleLanguageSelect("TA")}>தமிழ்</button>
+        </div>
+      )}
+    </div>
+  </div>
+</header>
+
 
         {/* Flow */}
 
