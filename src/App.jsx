@@ -276,9 +276,6 @@ function App() {
     setShowLangMenu(false);
   };
 
-  const handleDarkToggle = () => {
-    setIsDark((d) => !d);
-  };
 
   const rootClasses = [
     "atm-root",
@@ -309,21 +306,17 @@ function App() {
   return (
     <div className={rootClasses}>
       <div className="atm-frame">
-        {/* Header: OCBC logo + language + dark toggle */}
         <header className="atm-header atm-screen-contents">
-        <div >
-             <img src="/images/OCBC.png"  alt="ATM Logo"width="100" />
-        </div>
-
+          <button
+            type="button"
+            className="atm-logo-circle"
+          onClick={() => goTo("insertCard")}
+            aria-label="Restart session"
+          >
+            <span className="atm-logo-mark" />
+          </button>
 
           <div className="atm-header-right">
-            <button
-              type="button"
-              className="atm-theme-toggle"
-              onClick={handleDarkToggle}
-            >
-              {isDark ? "☀︎ Light" : "🌙 Dark"}
-            </button>
 
             <div className="atm-language-wrapper">
               <button
@@ -484,7 +477,7 @@ function PinEntryScreen({ goTo, t, pin, onPinSuccess }) {
       setError("");
       setInputPin("");
       onPinSuccess?.();
-      goTo("scanFace");
+      goTo("mainMenu");
     } else {
       setError(t("pin_error"));
       setInputPin("");
