@@ -759,12 +759,6 @@ function TransactionCompletedScreen({ goTo, t, balance }) {
 
         <div className="atm-card-footer right">
           <button
-            className="atm-secondary-btn"
-            onClick={() => goTo("anotherTransaction")}
-          >
-            {t("btn_back")}
-          </button>
-          <button
             className="atm-primary-btn"
             onClick={() => goTo("printReceipt")}
           >
