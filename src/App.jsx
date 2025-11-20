@@ -239,7 +239,7 @@ const tKey = (lang, key) =>
 
 function App() {
   const [screen, setScreen] = useState("insertCard");
-  const [pin, setPin] = useState("685432");
+  const [pin, setPin] = useState("123456");
   const [balance, setBalance] = useState(10058);
   const [accountBalance, setAccountBalance] = useState(10098);
 
