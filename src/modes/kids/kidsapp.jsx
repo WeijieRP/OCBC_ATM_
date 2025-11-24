@@ -333,13 +333,6 @@ return (
     <div className="atm-header-right">
         <div className="atm-language-wrapper">
         <button
-    key="savings"
-    className="kids-savings-goal-btn"
-    onClick={() => goTo("savingsGoal")}
-            >
-        My Savings Goal
-        </button>
-        <button
             className="atm-language-pill"
             type="button"
             onClick={() => setShowLangMenu((s) => !s)}
@@ -450,83 +443,83 @@ return (
 }
 
 function PinEntryScreen({ goTo, t, pin, onPinSuccess }) {
-const [inputPin, setInputPin] = useState("");
-const [error, setError] = useState("");
+  const [inputPin, setInputPin] = useState("");
+  const [error, setError] = useState("");
 
-const handleChange = (e) => {
-const onlyDigits = e.target.value.replace(/\D/g, "").slice(0, 6);
-setInputPin(onlyDigits);
-};
+  const handleChange = (e) => {
+    const onlyDigits = e.target.value.replace(/\D/g, "").slice(0, 6);
+    setInputPin(onlyDigits);
+  };
 
-const handleSubmit = () => {
-if (inputPin === pin) {
-    setError("");
+  const handleSubmit = () => {
+    if (inputPin === pin) {
+      setError("");
+      setInputPin("");
+      onPinSuccess?.();
+      goTo("mainMenu");
+    } else {
+      setError(t("pin_error"));
+      setInputPin("");
+    }
+  };
+
+  const handleForgotPin = () => {
+    setError("Please ask your parents for help with your PIN");
     setInputPin("");
-    onPinSuccess?.();
-    goTo("mainMenu");
-} else {
-    setError(t("pin_error"));
-    setInputPin("");
-}
-};
+  };
 
-const handleForgotPin = () => {
-setInputPin("");
-setError("");
-goTo("scanFace");
-};
+  const onKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
 
-const onKeyDown = (e) => {
-if (e.key === "Enter") {
-    handleSubmit();
-}
-};
-
-return (
-<main className="atm-main">
-    <div className="atm-card atm-screen-contents">
-    <button
-        className="atm-back-btn"
-        onClick={() => goTo("insertCard")}
-        aria-label="Back"
-    >
-        ←
-    </button>
-
-    <h2 className="atm-card-title center">{t("enter_pin_title")}</h2>
-
-    <input
-        type="password"
-        inputMode="numeric"
-        maxLength={6}
-        value={inputPin}
-        onChange={handleChange}
-        onKeyDown={onKeyDown}
-        className="atm-pin-input"
-        aria-label={t("enter_pin_title")}
-    />
-
-    {error && <p className="atm-pin-error">{error}</p>}
-
-    <div className="atm-card-footer center">
+  return (
+    <main className="atm-main">
+      <div className="atm-card atm-screen-contents">
         <button
-        className="atm-primary-btn"
-        type="button"
-        onClick={handleSubmit}
+          className="atm-back-btn"
+          onClick={() => goTo("insertCard")}
+          aria-label="Back"
         >
-        {t("btn_confirm")}
+          ←
         </button>
-        <button
-        className="atm-forgot-pin-link"
-        type="button"
-        onClick={handleForgotPin}
-        >
-        {t("forgot_pin")}
-        </button>
-    </div>
-    </div>
-</main>
-);
+
+        <h2 className="atm-card-title center">{t("enter_pin_title")}</h2>
+
+        <input
+          type="password"
+          inputMode="numeric"
+          maxLength={6}
+          value={inputPin}
+          onChange={handleChange}
+          onKeyDown={onKeyDown}
+          className="atm-pin-input"
+          aria-label={t("enter_pin_title")}
+
+        />
+
+        {error && <p className="atm-pin-error">{error}</p>}
+
+        <div className="atm-card-footer center">
+          <button
+            className="atm-primary-btn"
+            type="button"
+            onClick={handleSubmit}
+          >
+            {t("btn_confirm")}
+          </button>
+          <button
+            className="atm-forgot-pin-link"
+            type="button"
+            onClick={handleForgotPin}
+          >
+            {t("forgot_pin")}
+          </button>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 function ScanFaceScreen({ goTo, t }) {
@@ -608,6 +601,15 @@ buttons.push(
 );
 }
 
+buttons.push(
+    <button
+      key="savings"
+      className="atm-menu-btn"
+      onClick={() => goTo("savingsGoal")}
+    >
+      {t("savings_goal_button_label")}
+    </button>
+  );
 
 
 // Kids: See more
