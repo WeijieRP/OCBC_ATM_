@@ -225,7 +225,6 @@ ZH: "你可以在手机应用中更新这个目标。",
 MS: "Anda boleh mengemas kini matlamat ini dari aplikasi mudah alih.",
 TA: "இந்த இலக்கை மொபைல் செயலியில் மாற்றலாம்.",
 },
-
 // Kids “More fun banking” screen
 kids_see_more_title: {
 EN: "More fun banking",
@@ -246,13 +245,6 @@ MS: "Kembali ke menu utama",
 TA: "முதன்மை மெனுவுக்கு திரும்பு",
 },
 
-// Main menu extra button
-kids_more_fun_banking_btn: {
-EN: "More fun banking",
-ZH: "更多好玩银行活动",
-MS: "Perbankan yang lebih menyeronokkan",
-TA: "மேலும் வேடிக்கையான வங்கி",
-},
 };
 
 const tKey = (lang, key) =>
@@ -619,7 +611,7 @@ buttons.push(
     className="atm-menu-btn"
     onClick={() => goTo("seeMore")}
 >
-    More fun banking
+    {t("kids_see_more_title")}
 </button>
 );
 
