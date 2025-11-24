@@ -207,12 +207,6 @@ const STRINGS = {
     MS: "Jumlah lain (SGD)",
     TA: "மற்ற தொகை (SGD)",
   },
-  see_more:{
-    EN:"See More",
-    ZH:"",
-    MS:"",
-    TA:""
-  },
   btn_yes: { EN: "YES", ZH: "是", MS: "YA", TA: "ஆம்" },
   btn_no: { EN: "NO", ZH: "否", MS: "TIDAK", TA: "இல்லை" },
   btn_cancel: { EN: "CANCEL", ZH: "取消", MS: "BATAL", TA: "ரத்து" },
@@ -236,6 +230,42 @@ const STRINGS = {
     MS: "SAHKAN",
     TA: "உறுதிப்படுத்தவும்",
   },
+    see_more_options: {
+    EN: "See more options",
+    ZH: "查看更多选项",
+    MS: "Lihat lebih banyak pilihan",
+    TA: "மேலும் விருப்பங்களைப் பார்க்க"
+  },
+  more_options: {
+    EN: "More options",
+    ZH: "更多选项",
+    MS: "Lebih banyak pilihan",
+    TA: "மேலும் விருப்பங்கள்"
+  },
+  more_options_mode2: {
+    EN: "More options (Mode 2)",
+    ZH: "更多选项（模式2）",
+    MS: "Lebih banyak pilihan (Mod 2)",
+    TA: "மேலும் விருப்பங்கள் (முறை 2)"
+  },
+  more_options_mode3: {
+    EN: "More options (Mode 3)",
+    ZH: "更多选项（模式3）",
+    MS: "Lebih banyak pilihan (Mod 3)",
+    TA: "மேலும் விருப்பங்கள் (முறை 3)"
+  },
+  more_options_subtitle: {
+    EN: "This is a placeholder for extra features, promotions, or info.",
+    ZH: "这是用于额外功能、促销或信息的占位符。",
+    MS: "Ini adalah pemegang tempat untuk ciri tambahan, promosi, atau maklumat.",
+    TA: "கூடுதல் அம்சங்கள், விளம்பரங்கள் அல்லது தகவல்களுக்கான இடக்குறிப்பாகும்."
+  },
+  btn_back: {
+    EN: "Back",
+    ZH: "返回",
+    MS: "Kembali",
+    TA: "பின் செல்"
+  }
 };
 
 const tKey = (lang, key) =>
@@ -448,7 +478,7 @@ useEffect(() => {
         )}
 
         {screen === "seeMore" && (
-          <SeeMoreScreen goTo={goTo} mode={mode} />
+          <SeeMoreScreen goTo={goTo} t={t} mode={mode} />
         )}
 
         {screen === "depositCash" && (
@@ -733,7 +763,7 @@ function MainMenuScreen({ goTo, t, features, mode }) {
       className="atm-menu-btn"
       onClick={() => goTo("seeMore")}
     >
-      See more options
+      {t("see_more_options")}
     </button>
   );
 
@@ -771,14 +801,17 @@ function MainMenuScreen({ goTo, t, features, mode }) {
 }
 
 
-function SeeMoreScreen({ goTo, mode }) {
-  // You can customise this per mode later if you want
+function SeeMoreScreen({ goTo, mode, t }) {
+  // 使用安全的 t 函数
+  const safeT = t || ((key) => key);
+  
+  // 根据模式选择标题
   const title =
     mode === "mode2"
-      ? "More options (Mode 2)"
+      ? safeT("more_options_mode2")
       : mode === "mode3"
-      ? "More options (Mode 3)"
-      : "More options";
+      ? safeT("more_options_mode3")
+      : safeT("more_options");
 
   return (
     <main className="atm-main">
@@ -786,14 +819,14 @@ function SeeMoreScreen({ goTo, mode }) {
         <button
           className="atm-back-btn"
           onClick={() => goTo("mainMenu")}
-          aria-label="Back"
+          aria-label={safeT("btn_back")}
         >
           ←
         </button>
 
         <h2 className="atm-card-title center">{title}</h2>
         <p className="atm-subtitle center">
-          This is a placeholder for extra features, promotions, or info.
+          {safeT("more_options_subtitle")}
         </p>
 
       </div>

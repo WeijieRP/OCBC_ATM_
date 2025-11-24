@@ -228,6 +228,25 @@ ZH: "确认",
 MS: "SAHKAN",
 TA: "உறுதிப்படுத்தவும்",
 },
+more_services_title: {
+  EN: "More services & assistance",
+  ZH: "更多服务与帮助",
+  MS: "Lebih banyak perkhidmatan & bantuan",
+  TA: "மேலும் சேவைகள் & உதவி"
+},
+more_services_subtitle: {
+  EN: "This area can show help tips, scam warnings, and simple guides tailored for elderly users.",
+  ZH: "此区域可显示针对老年用户定制的帮助提示、诈骗警告和简单指南。",
+  MS: "Bahagian ini boleh menunjukkan tip bantuan, amaran penipuan, dan panduan mudah yang disesuaikan untuk pengguna warga emas.",
+  TA: "இந்த பகுதி முதியோர் பயனர்களுக்காக தனிப்பயனாக்கப்பட்ட உதவி உதவிக்குறிப்புகள், மோசடி எச்சரிக்கைகள் மற்றும் எளிய வழிகாட்டுதல்களைக் காட்டும்."
+},
+more_services_btn: {
+  EN: "More services & assistance",
+  ZH: "更多服务与帮助",
+  MS: "Lebih banyak perkhidmatan & bantuan",
+  TA: "மேலும் சேவைகள் & உதவி"
+},
+
 };
 
 const tKey = (lang, key) =>
@@ -356,7 +375,7 @@ return (
         />
     )}
 
-    {screen === "seeMore" && <SeeMoreScreen goTo={goTo} />}
+    {screen === "seeMore" && <SeeMoreScreen goTo={goTo} t={t}  />}
 
     {screen === "depositCash" && (
         <DepositCashScreen goTo={goTo} t={t} />
@@ -625,13 +644,13 @@ buttons.push(
 
 // Elderly: See more
 buttons.push(
-<button
+  <button
     key="seeMore"
     className="atm-menu-btn"
     onClick={() => goTo("seeMore")}
->
-    More services & assistance
-</button>
+  >
+    {t("more_services_btn")}
+  </button>
 );
 
 // Always Exit
@@ -666,37 +685,36 @@ return (
 );
 }
 
-function SeeMoreScreen({ goTo }) {
-return (
-<main className="atm-main">
-    <div className="atm-card atm-screen-contents">
-    <button
-        className="atm-back-btn"
-        onClick={() => goTo("mainMenu")}
-        aria-label="Back"
-    >
-        ←
-    </button>
-
-    <h2 className="atm-card-title center">
-        More services & assistance
-    </h2>
-    <p className="atm-subtitle center">
-        This area can show help tips, scam warnings, and simple guides
-        tailored for elderly users.
-    </p>
-
-    <div className="atm-card-footer center">
+function SeeMoreScreen({ goTo, t }) {
+  return (
+    <main className="atm-main">
+      <div className="atm-card atm-screen-contents">
         <button
-        className="atm-primary-btn"
-        onClick={() => goTo("mainMenu")}
+          className="atm-back-btn"
+          onClick={() => goTo("mainMenu")}
+          aria-label={t("btn_back")}
         >
-        Back to main menu
+          ←
         </button>
-    </div>
-    </div>
-</main>
-);
+
+        <h2 className="atm-card-title center">
+          {t("more_services_title")}
+        </h2>
+        <p className="atm-subtitle center">
+          {t("more_services_subtitle")}
+        </p>
+
+        <div className="atm-card-footer center">
+          <button
+            className="atm-primary-btn"
+            onClick={() => goTo("mainMenu")}
+          >
+            {t("btn_main_menu")}
+          </button>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 // The rest of the screens are identical to your current implementation:
