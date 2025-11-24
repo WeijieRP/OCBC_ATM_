@@ -898,3 +898,123 @@
 .landing-btn:hover {
   background: #c95454;
 }
+
+/* Add these to your existing App.css */
+
+/* Base font size increases */
+.atm-root--font-xl {
+  font-size: 22px !important; /* Increased from likely 18-20px */
+}
+
+.atm-root--font-xl .atm-title {
+  font-size: 2.2rem !important; /* Increased from 2rem */
+  font-weight: 700 !important;
+}
+
+.atm-root--font-xl .atm-card-title {
+  font-size: 1.9rem !important; /* Increased from 1.7rem */
+  font-weight: 600 !important;
+}
+
+.atm-root--font-xl .atm-subtitle {
+  font-size: 1.5rem !important; /* Increased from 1.3rem */
+}
+
+.atm-root--font-xl .atm-helper-text {
+  font-size: 1.3rem !important; /* Increased from 1.1rem */
+}
+
+/* Button font sizes */
+.atm-root--font-xl .atm-primary-btn,
+.atm-root--font-xl .atm-secondary-btn,
+.atm-root--font-xl .atm-menu-btn {
+  font-size: 1.6rem !important; /* Increased from 1.4rem */
+  font-weight: 600 !important;
+  padding: 16px 24px !important; /* Increased padding for better touch targets */
+  min-height: 60px !important; /* Ensure buttons are tall enough */
+}
+
+/* Quick amount buttons in withdraw screen */
+.atm-root--font-xl .atm-quick-amount-btn {
+  font-size: 1.5rem !important;
+  padding: 14px 20px !important;
+  min-height: 55px !important;
+}
+
+/* Input fields */
+.atm-root--font-xl .atm-pin-input,
+.atm-root--font-xl .atm-withdraw-input {
+  font-size: 2rem !important; /* Larger for better readability */
+  padding: 16px 20px !important;
+  height: 70px !important;
+}
+
+/* Balance amounts */
+.atm-root--font-xl .atm-balance-amount {
+  font-size: 2.5rem !important; /* Increased from 2.2rem */
+  font-weight: 700 !important;
+}
+
+/* Language pill */
+.atm-root--font-xl .atm-language-pill {
+  font-size: 1.4rem !important;
+  padding: 10px 16px !important;
+}
+
+/* Language menu */
+.atm-root--font-xl .atm-language-menu button {
+  font-size: 1.4rem !important;
+  padding: 12px 16px !important;
+}
+
+/* Back button */
+.atm-root--font-xl .atm-back-btn {
+  font-size: 2rem !important; /* Larger back arrow */
+  padding: 12px !important;
+  width: 50px !important;
+  height: 50px !important;
+}
+
+/* Forgot PIN link */
+.atm-root--font-xl .atm-forgot-pin-link {
+  font-size: 1.3rem !important;
+}
+
+/* Error messages */
+.atm-root--font-xl .atm-pin-error {
+  font-size: 1.4rem !important;
+}
+
+/* Scan status text */
+.atm-root--font-xl .atm-scan-status {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+}
+
+/* Yes/No column buttons */
+.atm-root--font-xl .atm-yesno-column .atm-primary-btn,
+.atm-root--font-xl .atm-yesno-column .atm-secondary-btn {
+  font-size: 1.7rem !important;
+  padding: 18px 24px !important;
+  min-height: 65px !important;
+}
+
+/* Big check mark */
+.atm-root--font-xl .atm-big-check {
+  font-size: 4rem !important; /* Increased from 3.5rem */
+}
+
+/* Money icon in balance displays */
+.atm-root--font-xl .atm-money-icon {
+  font-size: 3rem !important; /* Increased from 2.5rem */
+}
+
+/* Card screen text */
+.atm-root--font-xl .atm-card-screen .atm-subtitle {
+  font-size: 1.5rem !important;
+}
+
+.atm-root--font-xl .atm-card-screen .atm-primary-btn {
+  font-size: 1.6rem !important;
+  padding: 16px 32px !important;
+}
