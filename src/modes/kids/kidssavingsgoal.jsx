@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { db } from "../../firebaseConfig"; 
+import { ref, onValue } from "firebase/database";
 
 function KidsSavingsGoal({ goTo }) {
-// Later: read actual savings goal from Firebase
-const goalName = "New game";
-const goalAmount = 200;
-const currentSaved = 80;
+const [goalName, setGoalName] = useState("");
+const [goalAmount, setGoalAmount] = useState(0);
+const [currentSaved, setCurrentSaved] = useState(0);
+const [loading, setLoading] = useState(true);
 
-const progress = Math.min(
-100,
-Math.round((currentSaved / goalAmount) * 100)
+useEffect(() => {
+const goalRef = ref(db, "kids/savingsGoal");
+
+const unsubscribe = onValue(goalRef, (snapshot) => {
+    const data = snapshot.val();
+
+    if (data) {
+    setGoalName(data.goalName);
+    setGoalAmount(data.goalAmount);
+    setCurrentSaved(data.currentSaved);
+    }
+    setLoading(false);
+});
+
+return () => unsubscribe();
+}, []);
+
+if (loading) {
+return (
+    <main className="atm-main kids-savings-main">
+    <div className="atm-card atm-screen-contents kids-savings-card center">
+        <p>Loading goal…</p>
+    </div>
+    </main>
 );
+}
+
+const progress = Math.min(100, Math.round((currentSaved / goalAmount) * 100));
 
 return (
 <main className="atm-main kids-savings-main">
@@ -42,9 +68,6 @@ return (
     <p className="atm-helper-text center">
         You can update this goal from the mobile app.
     </p>
-
-    <div className="atm-card-footer center">
-    </div>
     </div>
 </main>
 );

@@ -260,12 +260,6 @@ const STRINGS = {
     MS: "Ini adalah pemegang tempat untuk ciri tambahan, promosi, atau maklumat.",
     TA: "கூடுதல் அம்சங்கள், விளம்பரங்கள் அல்லது தகவல்களுக்கான இடக்குறிப்பாகும்."
   },
-  btn_back: {
-    EN: "Back",
-    ZH: "返回",
-    MS: "Kembali",
-    TA: "பின் செல்"
-  }
 };
 
 const tKey = (lang, key) =>
