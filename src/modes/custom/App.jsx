@@ -1,9 +1,9 @@
-// src/App.jsx
+
 import React, { useEffect, useState } from "react";
-import "./App.css";
-import { useAtmFeatures } from "./useAtmFeatures";
-import { useAtmPreferences } from "./useAtmPreferences";
-import { useAtmSession } from "./useAtmSession";
+import "../../App.css";
+import { useAtmFeatures } from "../../useAtmFeatures";
+import { useAtmPreferences } from "../../useAtmPreferences";
+import { useAtmSession } from "../../useAtmSession";
 
 /* ---------- Language setup ---------- */
 
@@ -207,6 +207,12 @@ const STRINGS = {
     MS: "Jumlah lain (SGD)",
     TA: "மற்ற தொகை (SGD)",
   },
+  see_more:{
+    EN:"See More",
+    ZH:"",
+    MS:"",
+    TA:""
+  },
   btn_yes: { EN: "YES", ZH: "是", MS: "YA", TA: "ஆம்" },
   btn_no: { EN: "NO", ZH: "否", MS: "TIDAK", TA: "இல்லை" },
   btn_cancel: { EN: "CANCEL", ZH: "取消", MS: "BATAL", TA: "ரத்து" },
@@ -247,6 +253,7 @@ function App() {
   const [languageLocked, setLanguageLocked] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [mode, setMode] = useState(null);
 
   const { features, loading: featuresLoading } = useAtmFeatures();
   const { prefs, loading: prefsLoading } = useAtmPreferences();
@@ -262,17 +269,12 @@ function App() {
     setCurrentScreen(next);
   };
 
-  /* apply default language from prefs once (unless user changed) */
 useEffect(() => {
-  // If user has not changed language manually
   if (!languageLocked) {
-    if (prefs.defaultLanguage) {
-      setLanguage(prefs.defaultLanguage);
-    } else {
-      setLanguage("EN"); // fallback default
-    }
+    setLanguage("EN"); // always start in English
   }
-}, [prefs.defaultLanguage, languageLocked]);
+}, [languageLocked]);
+
 
 
   const handleLanguageSelect = (code) => {
@@ -296,6 +298,89 @@ useEffect(() => {
     .join(" ");
 
   if (loading) {
+     if (mode === null) {
+    return (
+      <div className={rootClasses}>
+        <div className="atm-frame">
+          <header className="atm-header atm-screen-contents">
+  <div>
+    <img src="/images/OCBC.png" alt="ATM Logo" width="100" />
+  </div>
+
+  <div className="atm-header-right">
+    {/* Kids mode savings goal pill */}
+    {mode === "mode2" && (
+      <div className="atm-kids-goal-pill">
+        <span className="atm-kids-goal-label">Savings Goal</span>
+        {/* For now this is just a placeholder. 
+            Later you can replace this with a value from Firebase / props. */}
+        <span className="atm-kids-goal-amount">$120.00</span>
+      </div>
+    )}
+
+    <div className="atm-language-wrapper">
+      <button
+        className="atm-language-pill"
+        type="button"
+        onClick={() => setShowLangMenu((s) => !s)}
+      >
+        {LANGUAGE_PILL_LABEL[language]}
+      </button>
+
+      {showLangMenu && (
+        <div className="atm-language-menu">
+          <button onClick={() => handleLanguageSelect("EN")}>English</button>
+          <button onClick={() => handleLanguageSelect("ZH")}>中文</button>
+          <button onClick={() => handleLanguageSelect("MS")}>Melayu</button>
+          <button onClick={() => handleLanguageSelect("TA")}>தமிழ்</button>
+        </div>
+      )}
+    </div>
+  </div>
+</header>
+
+
+          <main className="atm-main atm-screen-contents">
+            <div className="atm-card atm-screen-contents atm-mode-landing">
+              <h1 className="atm-title center">Choose a mode</h1>
+
+              <div className="atm-mode-buttons">
+                <button
+                  className="atm-primary-btn"
+                  onClick={() => {
+                    setMode("mode1");
+                    setScreen("insertCard"); 
+                  }}
+                >
+                  Mode 1 – ATM demo
+                </button>
+
+                <button
+                  className="atm-secondary-btn"
+                  onClick={() => {
+                    setMode("mode2");
+                    setScreen("insertCard"); 
+                  }}
+                >
+                  Mode 2
+                </button>
+
+                <button
+                  className="atm-secondary-btn"
+                  onClick={() => {
+                    setMode("mode3");
+                    setScreen("insertCard"); 
+                  }}
+                >
+                  Mode 3
+                </button>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    );
+  }
     return (
       <div className="atm-root atm-root--light atm-root--font-md atm-loading">
         <div className="atm-frame">
@@ -359,7 +444,11 @@ useEffect(() => {
         )}
 
         {screen === "mainMenu" && (
-          <MainMenuScreen goTo={goTo} t={t} features={features} />
+          <MainMenuScreen goTo={goTo} t={t} features={features} mode={mode}/>
+        )}
+
+        {screen === "seeMore" && (
+          <SeeMoreScreen goTo={goTo} mode={mode} />
         )}
 
         {screen === "depositCash" && (
@@ -576,8 +665,19 @@ function ScanFaceScreen({ goTo, t }) {
   );
 }
 
-function MainMenuScreen({ goTo, t, features }) {
+function MainMenuScreen({ goTo, t, features, mode }) {
   const buttons = [];
+  if (mode === "mode1") {
+    // normal ATM
+  }
+
+  if (mode === "mode2") {
+    // kids mode
+  }
+
+  if (mode === "mode3") {
+    // elderly mode
+  }
 
   if (features.depositCash) {
     buttons.push(
@@ -627,18 +727,29 @@ function MainMenuScreen({ goTo, t, features }) {
     );
   }
 
+  buttons.push(
+    <button
+      key="seeMore"
+      className="atm-menu-btn"
+      onClick={() => goTo("seeMore")}
+    >
+      See more options
+    </button>
+  );
+
   // Always allow Exit
   buttons.push(
     <button
       key="exit"
-      className="atm-menu-btn atm-menu-btn--ghost"
+      className="atm-menu-btn atm-menu-btn--danger"
       onClick={() => goTo("thankYou")}
     >
       {t("exit")}
     </button>
   );
 
-  const onlyExit = buttons.length === 1;
+
+  const onlyExit = buttons.length === 2; // exit + seeMore
 
   return (
     <main className="atm-main">
@@ -654,6 +765,37 @@ function MainMenuScreen({ goTo, t, features }) {
         ) : (
           <div className="atm-menu-grid">{buttons}</div>
         )}
+      </div>
+    </main>
+  );
+}
+
+
+function SeeMoreScreen({ goTo, mode }) {
+  // You can customise this per mode later if you want
+  const title =
+    mode === "mode2"
+      ? "More options (Mode 2)"
+      : mode === "mode3"
+      ? "More options (Mode 3)"
+      : "More options";
+
+  return (
+    <main className="atm-main">
+      <div className="atm-card atm-screen-contents">
+        <button
+          className="atm-back-btn"
+          onClick={() => goTo("mainMenu")}
+          aria-label="Back"
+        >
+          ←
+        </button>
+
+        <h2 className="atm-card-title center">{title}</h2>
+        <p className="atm-subtitle center">
+          This is a placeholder for extra features, promotions, or info.
+        </p>
+
       </div>
     </main>
   );

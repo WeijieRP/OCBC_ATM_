@@ -30,9 +30,6 @@
     "Helvetica Neue", Arial, sans-serif;
 }
 
-.atm-root--light {
-  /* defaults already set */
-}
 
 .atm-root--dark {
   --bg: #050816;
@@ -628,6 +625,11 @@
   background: var(--accent-soft);
 }
 
+.atm  .atm-menu-btn--danger{
+  background: var(--accent);
+  color: #ffffff;
+}
+
 /* Withdraw quick amounts */
 
 .atm-quick-amounts {
@@ -728,4 +730,171 @@
   .atm-menu-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.atm-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* space between savings pill and language button */
+}
+
+.atm-kids-goal-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff7d6; /* soft yellow, you can tweak */
+  border: 1px solid #f3d37a;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.kids-mode-root {
+  height:100vh;
+  width: 100%;
+  background-color: #f7f7f8; /* light grey page bg */
+}
+.kids-savings-goal-btn {
+  background-color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #d55f5f;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  margin-right: 40px;
+
+  border: 2px solid #f3d7d7;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.kids-savings-goal-btn:hover {
+  background-color: #ffecec;
+  transform: translateY(-2px);
+}
+
+.kids-savings-goal-btn:active {
+  transform: translateY(0);
+  background-color: #ffdede;
+}
+
+
+.kids-mode-root .atm-frame {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 32px;
+  overflow: hidden; /* clip the image to the box */
+}
+
+.kids-progress-text {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff7a7a; 
+  margin-top: 12px;
+
+
+  animation: kidsProgressPop 1.6s infinite ease-in-out;
+}
+
+@keyframes kidsProgressPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.kids-mode-root .atm-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0; 
+  background-image: url("./modes/kids/kidsbackground.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;  
+  z-index: 0;
+}
+
+/* Make all normal contents sit above the image */
+.kids-mode-root .atm-screen-contents {
+  position: relative;
+  z-index: 1;
+}
+
+.kids-mode-root .atm-header {
+  position: relative;
+  z-index: 20;
+}
+
+.kids-mode-root .atm-card {
+  position: relative;
+  z-index: 1;
+}
+
+.kids-mode-root .atm-language-menu {
+  position: absolute;
+  z-index: 30; /* higher than header/card */
+}
+
+.kids-bg-img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;          /* stretch across */
+  max-width: 1200px;    /* tweak for your layout */
+  pointer-events: none; /* don't block clicks */
+  z-index: 0;
+}
+
+.kids-atm-frame {
+  position: relative;
+  z-index: 1;
+  background: transparent; 
+}
+
+
+.atm-kids-goal-label {
+  font-weight: 600;
+}
+
+.atm-kids-goal-amount {
+  font-weight: 700;
+}
+
+.landing-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-title {
+  font-size: 32px;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.landing-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.landing-btn {
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  background: #e86464;
+  color: white;
+  transition: 0.2s;
+}
+
+.landing-btn:hover {
+  background: #c95454;
 }
