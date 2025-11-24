@@ -1070,12 +1070,6 @@ function WithdrawCashScreen({
 
         <div className="atm-card-footer right">
           <button
-            className="atm-secondary-btn"
-            onClick={() => goTo("mainMenu")}
-          >
-            {t("btn_cancel")}
-          </button>
-          <button
             className="atm-primary-btn"
             onClick={handleConfirm}
             disabled={!withdrawAmount || withdrawAmount <= 0}
