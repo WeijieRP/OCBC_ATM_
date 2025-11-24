@@ -609,8 +609,8 @@
   font-weight: 600;
   text-align: left;
   cursor: pointer;
-  background: var(--bg);
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+  background: var(--bg-light, #99a0a7); /* 更浅的背景色 */
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1); /* 更浅的阴影 */
   transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
   color: var(--text-main);
 }
@@ -1018,3 +1018,4 @@
   font-size: 1.6rem !important;
   padding: 16px 32px !important;
 }
+

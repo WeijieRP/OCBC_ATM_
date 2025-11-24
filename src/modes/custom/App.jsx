@@ -866,12 +866,6 @@ function CountingCashScreen({ goTo, t, onDone }) {
         <div className="atm-spinner-coin" />
 
         <div className="atm-card-footer right">
-          <button
-            className="atm-secondary-btn"
-            onClick={() => goTo("thankYou")}
-          >
-            {t("btn_cancel")}
-          </button>
           <button className="atm-primary-btn" onClick={handleNext}>
             {t("btn_next")}
           </button>

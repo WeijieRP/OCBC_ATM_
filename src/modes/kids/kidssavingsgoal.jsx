@@ -2,7 +2,7 @@ import React from "react";
 
 function KidsSavingsGoal({ goTo }) {
 // Later: read actual savings goal from Firebase
-const goalName = "New Bicycle";
+const goalName = "New game";
 const goalAmount = 200;
 const currentSaved = 80;
 
