@@ -485,7 +485,7 @@ if (inputPin === pin) {
     setError("");
     setInputPin("");
     onPinSuccess?.();
-    goTo("mainMenu");
+    goTo("scanFace");
 } else {
     setError(t("pin_error"));
     setInputPin("");
